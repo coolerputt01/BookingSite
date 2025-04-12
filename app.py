@@ -44,7 +44,6 @@ def add_products():
     try:
         data = request.get_json()
         new_product = Product(
-            tracking_no=data['tracking_number'],
             shipment_type=data['shipment_type'],
             parcel_weight=data['parcel_weight'],
             invoice_no=data['invoice_number'],
@@ -71,6 +70,57 @@ def get_products():
     except Exception as e:
         return jsonify({"Error Occurred": str(e)}), 500
 
+@app.route('/updatedata', methods=["PUT"])
+def update_product():
+    try:
+        data = request.get_json()
+        tracking_no = request.args.get('tracking_no')
+        if not tracking_no:
+            return jsonify({"message": "Missing tracking_no in query params"}), 400
+        product = Product.query.filter_by(tracking_no=tracking_no).first()
+        if not product:
+            return jsonify({"message": "Product not found"}), 404
+
+        product.shipment_type = data['shipment_type']
+        product.parcel_weight = data['parcel_weight']
+        product.invoice_no = data['invoice_number']
+        product.transport_mode = data['transport_mode']
+        product.tax = data['tax']
+        product.payment_status = data['payment_status']
+        product.delivery_status = data['delivery_status']
+        product.current_location = data['current_location']
+        product.delivery_date = data['delivery_date']
+        product.additional_notes = data['additional_notes']
+
+        db.session.commit()
+        return jsonify({"Product successfully updated":product.json()}), 200
+    except Exception as e:
+        return jsonify({"Error Occurred": str(e)}), 500
+
+@app.route('/deletedata', methods=["DELETE"])
+def delete_product():
+    try:
+        tracking_no = request.args.get('tracking_no')
+        product = Product.query.filter_by(tracking_no=tracking_no).first()
+        if not product:
+            return jsonify({"message": "Product not found"}), 404
+
+        db.session.delete(product)
+        db.session.commit()
+        return jsonify({"message": "Product successfully deleted"}), 200
+    except Exception as e:
+        return jsonify({"Error Occurred": str(e)}), 500
+    
+@app.route('/getdata/<int:tracking_no>', methods=['GET'])
+def get_product_by_id(tracking_no):
+    try:
+        product = Product.query.get(tracking_no)
+        if not product:
+            return jsonify({"message": "Product not found"}), 404
+        return jsonify(product.json()), 200
+    except Exception as e:
+        return jsonify({"Error Occurred": str(e)}), 500
+    
 with app.app_context():
     db.create_all()
 

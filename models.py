@@ -3,7 +3,7 @@ import uuid
 
 class Product(db.Model):
     id = db.Column(db.Integer,primary_key=True)
-    tracking_no = db.Column(db.String(36), nullable=False,default=str(uuid.uuid4()))
+    tracking_no = db.Column(db.String(36), nullable=False,default=lambda: str(uuid.uuid4()))
     shipment_type = db.Column(db.String, nullable=False)
     parcel_weight = db.Column(db.String,nullable=False)
     invoice_no = db.Column(db.Integer,nullable=False)
@@ -27,7 +27,7 @@ class Product(db.Model):
             "payment_status": self.payment_status,
             "delivery_status": self.delivery_status,
             "current_location": self.current_location,
-            "delivery_date": self.delivery_date.isoformat() if self.delivery_date else None,  # Ensure date is serialized correctly
+            "delivery_date": self.delivery_date, # Ensure date is serialized correctly
             "additional_notes": self.additional_notes
         }
         print(output)
