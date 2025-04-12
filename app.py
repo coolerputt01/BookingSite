@@ -1,10 +1,11 @@
 from flask import Flask, request, jsonify
 from extensions import db
 import uuid
+import os
 from models import Product
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://flaskuser:flaskpassword@localhost:5432/flaskapp"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 db.init_app(app)
 
 class User(db.Model):
