@@ -14,6 +14,9 @@ class Product(db.Model):
     current_location = db.Column(db.String,nullable=False)
     delivery_date = db.Column(db.String,nullable=True)
     additional_notes = db.Column(db.String, nullable=True)
+    address = db.Column(db.String,nullable=False)
+    name = db.Column(db.String,nullable=False)
+    phone_number = db.Column(db.String,nullable=False)
 
     def json(self):
         output = {
@@ -28,7 +31,10 @@ class Product(db.Model):
             "delivery_status": self.delivery_status,
             "current_location": self.current_location,
             "delivery_date": self.delivery_date, # Ensure date is serialized correctly
-            "additional_notes": self.additional_notes
+            "additional_notes": self.additional_notes,
+            "phone_number":self.phone_number,
+            "name":self.name,
+            "address":self.address
         }
         print(output)
         return output
