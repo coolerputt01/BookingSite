@@ -3,14 +3,14 @@ import uuid
 
 class Product(db.Model):
     id = db.Column(db.Integer,primary_key=True)
-    tracking_no = db.Column(db.String(36), nullable=False,default=lambda: str(uuid.uuid4()))
+    tracking_no = db.Column(db.String(8), nullable=False,default=lambda: str(uuid.uuid4()))
     shipment_type = db.Column(db.String, nullable=False)
     parcel_weight = db.Column(db.String,nullable=False)
     invoice_no = db.Column(db.Integer,nullable=False)
     transport_mode = db.Column(db.String,nullable=False)
     tax = db.Column(db.String,nullable=False)
-    payment_status = db.Column(db.Boolean,default=False,nullable=False)
-    delivery_status = db.Column(db.Boolean,default=False,nullable=False)
+    payment_status = db.Column(db.String,default=False,nullable=False)
+    delivery_status = db.Column(db.String,default=False,nullable=False)
     current_location = db.Column(db.String,nullable=False)
     delivery_date = db.Column(db.String,nullable=True)
     additional_notes = db.Column(db.String, nullable=True)
