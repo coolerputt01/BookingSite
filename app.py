@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from extensions import db
+from flask_cors import CORS
 import uuid
 import os
 from models import Product
@@ -7,6 +8,7 @@ from models import Product
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 db.init_app(app)
+CORS(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
