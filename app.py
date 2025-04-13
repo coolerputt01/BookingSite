@@ -120,7 +120,7 @@ def delete_product():
     except Exception as e:
         return jsonify({"Error Occurred": str(e)}), 500
     
-@app.route('/getdata/<int:tracking_no>', methods=['GET'])
+@app.route('/getdata/<tracking_no>', methods=['GET'])
 def get_product_by_id(tracking_no):
     try:
         product = Product.query.get(tracking_no)
