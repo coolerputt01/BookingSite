@@ -3,7 +3,7 @@ import uuid
 
 class Product(db.Model):
     id = db.Column(db.Integer,primary_key=True)
-    tracking_no = db.Column(db.String(8), nullable=False,default=lambda: str(uuid.uuid4()))
+    tracking_no = db.Column(db.String(8), nullable=False,default=lambda: str(uuid.uuid4())[:8])
     shipment_type = db.Column(db.String, nullable=False)
     parcel_weight = db.Column(db.String,nullable=False)
     invoice_no = db.Column(db.Integer,nullable=False)
