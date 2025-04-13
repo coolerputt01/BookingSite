@@ -53,7 +53,10 @@ def add_products():
             delivery_status=data['delivery_status'],
             current_location=data['current_location'],
             delivery_date=data['delivery_date'],
-            additional_notes=data['additional_notes']
+            additional_notes=data['additional_notes'],
+            name=data['name'],
+            phone_number=data['phone_number'],
+            address=data['address']
         )
         print("It works")
         db.session.add(new_product)
@@ -91,6 +94,10 @@ def update_product():
         product.current_location = data['current_location']
         product.delivery_date = data['delivery_date']
         product.additional_notes = data['additional_notes']
+        product.name = data['name']
+        product.address = data['address']
+        product.phone_number = data['phone_number']
+        
 
         db.session.commit()
         return jsonify({"Product successfully updated":product.json()}), 200
