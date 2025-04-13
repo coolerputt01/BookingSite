@@ -123,7 +123,7 @@ def delete_product():
 @app.route('/getdata/<tracking_no>', methods=['GET'])
 def get_product_by_id(tracking_no):
     try:
-        product = Product.query.get(tracking_no)
+        product = Product.query.filter_by(tracking_no=tracking_no).first()
         if not product:
             return jsonify({"message": "Product not found"}), 404
         return jsonify(product.json()), 200
