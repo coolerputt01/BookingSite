@@ -67,7 +67,7 @@ def add_products():
     except Exception as e:
         return jsonify({"Error Occurred": str(e)}), 500
 
-@app.route('/getdata', methods=["GET"])
+@app.route('/getdatas', methods=["GET"])
 def get_products():
     try:
         products = Product.query.all()
