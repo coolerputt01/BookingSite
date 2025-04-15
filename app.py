@@ -86,19 +86,20 @@ def update_product():
         if not product:
             return jsonify({"message": "Product not found"}), 404
 
-        product.shipment_type = data['shipment_type', product.shipment_type]
-        product.parcel_weight = data['parcel_weight', product.parcel_weight]
-        product.invoice_no = data['invoice_number', product.invoice_number]
-        product.transport_mode = data['transport_mode', product.transport_mode]
-        product.tax = data['tax',product.tax]
-        product.payment_status = data['payment_status', product.payment_status]
-        product.delivery_status = data['delivery_status', product.delivery_status]
-        product.current_location = data['current_location', product.current_location]
-        product.delivery_date = data['delivery_date', product.delivery_date]
-        product.additional_notes = data['additional_notes', product.additional_notes]
-        product.name = data['name', product.name]
-        product.address = data['address', product.address]
-        product.phone_number = data['phone_number', product.phone_number]
+        product.shipment_type = data.get('shipment_type', product.shipment_type)
+        product.parcel_weight = data.get('parcel_weight', product.parcel_weight)
+        product.invoice_no = data.get('invoice_number', product.invoice_no)
+        product.transport_mode = data.get('transport_mode', product.transport_mode)
+        product.tax = data.get('tax', product.tax)
+        product.payment_status = data.get('payment_status', product.payment_status)
+        product.delivery_status = data.get('delivery_status', product.delivery_status)
+        product.current_location = data.get('current_location', product.current_location)
+        product.delivery_date = data.get('delivery_date', product.delivery_date)
+        product.additional_notes = data.get('additional_notes', product.additional_notes)
+        product.name = data.get('name', product.name)
+        product.address = data.get('address', product.address)
+        product.phone_number = data.get('phone_number', product.phone_number)
+
         
 
         db.session.commit()
